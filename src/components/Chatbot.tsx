@@ -1,19 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { MessageCircle, X, Send } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Chatbot = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Bonjour! Comment puis-je vous aider aujourd'hui?",
+      text: t('chatbotGreeting'),
       isBot: true,
     },
   ]);
+
+  useEffect(() => {
+    // Update greeting when language changes
+    setMessages([
+      {
+        id: 1,
+        text: t('chatbotGreeting'),
+        isBot: true,
+      },
+    ]);
+  }, [t]);
 
   const handleSend = () => {
     if (!message.trim()) return;
@@ -31,7 +44,7 @@ const Chatbot = () => {
         ...newMessages,
         {
           id: Date.now() + 1,
-          text: "Merci pour votre message! Pour une assistance complète, veuillez nous appeler au +212 522 950 604.",
+          text: t('chatbotResponse'),
           isBot: true,
         },
       ]);
@@ -55,8 +68,8 @@ const Chatbot = () => {
           <div className="flex flex-col h-[500px]">
             {/* Header */}
             <div className="bg-gradient-spanish text-primary-foreground p-4 rounded-t-lg">
-              <h3 className="font-semibold text-lg">Vicho's Assistant</h3>
-              <p className="text-sm opacity-90">Nous sommes là pour vous aider</p>
+              <h3 className="font-semibold text-lg">{t('chatbotTitle')}</h3>
+              <p className="text-sm opacity-90">{t('chatbotSubtitle')}</p>
             </div>
 
             {/* Messages */}
@@ -86,7 +99,7 @@ const Chatbot = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Tapez votre message..."
+                  placeholder={t('chatbotPlaceholder')}
                   className="flex-1"
                 />
                 <Button onClick={handleSend} size="icon" className="bg-accent">

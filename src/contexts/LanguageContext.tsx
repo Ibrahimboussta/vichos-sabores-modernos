@@ -48,6 +48,11 @@ const translations = {
     followUs: 'Síguenos',
     aboutTitle: 'Auténtica Cocina Española',
     aboutText: 'En Vicho\'s Tapas, te traemos los sabores auténticos de España a Casablanca. Nuestras tapas tradicionales y platos mediterráneos se preparan con los ingredientes más frescos y las recetas tradicionales.',
+    chatbotTitle: 'Asistente de Vicho',
+    chatbotSubtitle: 'Estamos aquí para ayudarte',
+    chatbotPlaceholder: 'Escribe tu mensaje...',
+    chatbotGreeting: '¡Hola! ¿Cómo puedo ayudarte hoy?',
+    chatbotResponse: '¡Gracias por tu mensaje! Para asistencia completa, llámanos al +212 522 950 604.',
   },
   fr: {
     home: 'Accueil',
@@ -88,6 +93,11 @@ const translations = {
     followUs: 'Suivez-nous',
     aboutTitle: 'Cuisine Espagnole Authentique',
     aboutText: 'Chez Vicho\'s Tapas, nous vous apportons les saveurs authentiques de l\'Espagne à Casablanca. Nos tapas traditionnelles et plats méditerranéens sont préparés avec les ingrédients les plus frais et les recettes traditionnelles.',
+    chatbotTitle: 'Assistant Vicho',
+    chatbotSubtitle: 'Nous sommes là pour vous aider',
+    chatbotPlaceholder: 'Tapez votre message...',
+    chatbotGreeting: 'Bonjour! Comment puis-je vous aider aujourd\'hui?',
+    chatbotResponse: 'Merci pour votre message! Pour une assistance complète, veuillez nous appeler au +212 522 950 604.',
   },
   en: {
     home: 'Home',
@@ -128,6 +138,11 @@ const translations = {
     followUs: 'Follow Us',
     aboutTitle: 'Authentic Spanish Cuisine',
     aboutText: 'At Vicho\'s Tapas, we bring you the authentic flavors of Spain to Casablanca. Our traditional tapas and Mediterranean dishes are prepared with the freshest ingredients and time-honored recipes.',
+    chatbotTitle: 'Vicho\'s Assistant',
+    chatbotSubtitle: 'We\'re here to help',
+    chatbotPlaceholder: 'Type your message...',
+    chatbotGreeting: 'Hello! How can I help you today?',
+    chatbotResponse: 'Thank you for your message! For complete assistance, please call us at +212 522 950 604.',
   },
 };
 
