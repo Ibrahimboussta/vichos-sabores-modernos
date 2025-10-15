@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
@@ -10,6 +11,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { items } = useCart();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,45 +41,45 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <button
-            onClick={() => scrollToSection('hero')}
+          <Link
+            to="/"
             className="font-serif text-2xl font-bold hover:text-accent transition-smooth"
           >
             Vicho's Tapas
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <button
-              onClick={() => scrollToSection('hero')}
+            <Link
+              to="/"
               className="font-medium hover:text-accent transition-smooth"
             >
               {t('home')}
-            </button>
-            <button
-              onClick={() => scrollToSection('menu')}
+            </Link>
+            <Link
+              to="/menu"
               className="font-medium hover:text-accent transition-smooth"
             >
               {t('menu')}
-            </button>
-            <button
-              onClick={() => scrollToSection('reservations')}
+            </Link>
+            <Link
+              to="/reservations"
               className="font-medium hover:text-accent transition-smooth"
             >
               {t('reservations')}
-            </button>
-            <button
-              onClick={() => scrollToSection('gallery')}
+            </Link>
+            <Link
+              to="/gallery"
               className="font-medium hover:text-accent transition-smooth"
             >
               {t('gallery')}
-            </button>
-            <button
-              onClick={() => scrollToSection('contact')}
+            </Link>
+            <Link
+              to="/contact"
               className="font-medium hover:text-accent transition-smooth"
             >
               {t('contact')}
-            </button>
+            </Link>
           </div>
 
           {/* Language Switcher & Cart */}
@@ -111,17 +114,31 @@ const Navbar = () => {
               </button>
             </div>
 
-            <button
-              onClick={() => scrollToSection('cart')}
-              className="relative p-2 hover:text-accent transition-smooth"
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </button>
+            {isHomePage ? (
+              <button
+                onClick={() => scrollToSection('cart')}
+                className="relative p-2 hover:text-accent transition-smooth"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            ) : (
+              <Link
+                to="/menu"
+                className="relative p-2 hover:text-accent transition-smooth"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {/* Mobile Menu Button */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -132,36 +149,41 @@ const Navbar = () => {
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px]">
                 <div className="flex flex-col gap-6 mt-8">
-                  <button
-                    onClick={() => scrollToSection('hero')}
+                  <Link
+                    to="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-lg font-medium hover:text-accent transition-smooth text-left"
                   >
                     {t('home')}
-                  </button>
-                  <button
-                    onClick={() => scrollToSection('menu')}
+                  </Link>
+                  <Link
+                    to="/menu"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-lg font-medium hover:text-accent transition-smooth text-left"
                   >
                     {t('menu')}
-                  </button>
-                  <button
-                    onClick={() => scrollToSection('reservations')}
+                  </Link>
+                  <Link
+                    to="/reservations"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-lg font-medium hover:text-accent transition-smooth text-left"
                   >
                     {t('reservations')}
-                  </button>
-                  <button
-                    onClick={() => scrollToSection('gallery')}
+                  </Link>
+                  <Link
+                    to="/gallery"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-lg font-medium hover:text-accent transition-smooth text-left"
                   >
                     {t('gallery')}
-                  </button>
-                  <button
-                    onClick={() => scrollToSection('contact')}
+                  </Link>
+                  <Link
+                    to="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-lg font-medium hover:text-accent transition-smooth text-left"
                   >
                     {t('contact')}
-                  </button>
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>
