@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { menuItems, categories } from '@/data/menuData';
-import { Plus } from 'lucide-react';
+import { Plus, ArrowRight } from 'lucide-react';
 import patasBravasImg from '@/assets/menu/patatas-bravas.jpg';
 import tortillaEspanolaImg from '@/assets/menu/tortilla-espanola.jpg';
 import pulpoCarbonImg from '@/assets/menu/pulpo-carbon.jpg';
@@ -21,12 +22,18 @@ const menuImages: Record<string, string> = {
   'tr7': croquetasImg,
 };
 
-const Menu = () => {
+interface MenuProps {
+  limit?: number;
+}
+
+const Menu = ({ limit }: MenuProps = {}) => {
   const { t } = useLanguage();
   const { addItem } = useCart();
   const [selectedCategory, setSelectedCategory] = useState('chefs');
 
   const filteredItems = menuItems.filter((item) => item.category === selectedCategory);
+  const displayItems = limit ? filteredItems.slice(0, limit) : filteredItems;
+  const hasMore = limit && filteredItems.length > limit;
 
   const uniqueCategories = categories.filter(
     (category, index, self) =>
@@ -61,7 +68,7 @@ const Menu = () => {
 
         {/* Menu Items Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredItems.map((item) => (
+          {displayItems.map((item) => (
             <Card
               key={item.id}
               className="group hover:shadow-glow transition-all duration-300 overflow-hidden"
@@ -109,6 +116,18 @@ const Menu = () => {
             </Card>
           ))}
         </div>
+
+        {/* View Full Menu Button */}
+        {hasMore && (
+          <div className="text-center mt-12 animate-fade-in">
+            <Link to="/menu">
+              <Button size="lg" className="group">
+                {t('viewFullMenu')}
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-smooth" />
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ const Index = () => {
           <main>
             <Hero />
             <About />
-            <Menu />
+            <Menu limit={8} />
             <Cart />
             <Reservations />
             <Gallery />

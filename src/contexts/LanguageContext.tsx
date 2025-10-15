@@ -53,6 +53,7 @@ const translations = {
     chatbotPlaceholder: 'Escribe tu mensaje...',
     chatbotGreeting: '¡Hola! ¿Cómo puedo ayudarte hoy?',
     chatbotResponse: '¡Gracias por tu mensaje! Para asistencia completa, llámanos al +212 522 950 604.',
+    viewFullMenu: 'Ver Menú Completo',
   },
   fr: {
     home: 'Accueil',
@@ -98,6 +99,7 @@ const translations = {
     chatbotPlaceholder: 'Tapez votre message...',
     chatbotGreeting: 'Bonjour! Comment puis-je vous aider aujourd\'hui?',
     chatbotResponse: 'Merci pour votre message! Pour une assistance complète, veuillez nous appeler au +212 522 950 604.',
+    viewFullMenu: 'Voir le Menu Complet',
   },
   en: {
     home: 'Home',
@@ -143,6 +145,7 @@ const translations = {
     chatbotPlaceholder: 'Type your message...',
     chatbotGreeting: 'Hello! How can I help you today?',
     chatbotResponse: 'Thank you for your message! For complete assistance, please call us at +212 522 950 604.',
+    viewFullMenu: 'View Full Menu',
   },
 };
 
