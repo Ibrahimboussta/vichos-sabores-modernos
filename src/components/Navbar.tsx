@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import logo from '../../public/img/logo vicho-1.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
             to="/"
             className="font-serif text-2xl font-bold hover:text-accent transition-smooth"
           >
-            Vicho's Tapas
+            <img src={logo} alt="Vicho Sabores Modernos" className="h-24" />
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { ChevronDown } from 'lucide-react'
-import video_31 from '../../public/video/Video_31.mp4'
+import video_31 from '../../public/video/vichos.mp4'
 
 const Hero = () => {
   const { t } = useLanguage()
