@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 const Reservations = () => {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -18,20 +18,40 @@ const Reservations = () => {
     guests: '2',
     message: '',
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send to a backend
-    toast.success('Réservation envoyée! Nous vous contacterons bientôt.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      guests: '2',
-      message: '',
-    });
+    setLoading(true);
+
+    // Replace with the provided webhook URL
+    const webhookUrl = 'https://hahaharsdstyigfyfgfyfgtoi.app.n8n.cloud/webhook/reservation';
+
+    try {
+      const resp = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+  if (!resp.ok) throw new Error(`Request failed with status ${resp.status}`);
+
+      toast.success('Réservation envoyée! Nous vous contacterons bientôt.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        guests: '2',
+        message: '',
+      });
+    } catch (err) {
+      console.error('Reservation submit error:', err);
+      toast.error('Erreur lors de l\'envoi de la réservation. Veuillez réessayer.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (

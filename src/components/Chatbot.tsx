@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,50 +10,62 @@ const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: t('chatbotGreeting'),
-      isBot: true,
-    },
+    { id: 1, text: t('chatbotGreeting'), isBot: true },
   ]);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll whenever messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   useEffect(() => {
     // Update greeting when language changes
-    setMessages([
-      {
-        id: 1,
-        text: t('chatbotGreeting'),
-        isBot: true,
-      },
-    ]);
+    setMessages([{ id: 1, text: t('chatbotGreeting'), isBot: true }]);
   }, [t]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!message.trim()) return;
 
-    const newMessages = [
-      ...messages,
-      { id: Date.now(), text: message, isBot: false },
-    ];
-    setMessages(newMessages);
+    const userMsg = { id: Date.now(), text: message, isBot: false };
+    setMessages((prev) => [...prev, userMsg]);
     setMessage('');
 
-    // Simulate bot response
-    setTimeout(() => {
-      setMessages([
-        ...newMessages,
+    try {
+      const response = await fetch(
+        'https://hahaharsdstyigfyfgfyfgtoi.app.n8n.cloud/webhook/835dc06d-b1e3-44b9-9dc9-c60ffab4566a',
         {
-          id: Date.now() + 1,
-          text: t('chatbotResponse'),
-          isBot: true,
-        },
-      ]);
-    }, 1000);
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        }
+      );
+
+      if (!response.ok) throw new Error(`Webhook returned ${response.status}`);
+
+      const rawData = await response.json();
+      console.log('Webhook response:', rawData);
+
+      const botReply =
+        rawData?.output ?? rawData?.[0]?.json?.output ?? '⚠️ Je n’ai pas pu obtenir de réponse.';
+
+      const botMsg = { id: Date.now() + 1, text: botReply, isBot: true };
+      setMessages((prev) => [...prev, botMsg]);
+    } catch (error) {
+      console.error('Error sending message to webhook:', error);
+      const errorMsg = {
+        id: Date.now() + 1,
+        text: '⚠️ Une erreur est survenue. Veuillez réessayer plus tard.',
+        isBot: true,
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    }
   };
 
   return (
     <>
-      {/* Chat Button */}
+      {/* Floating Chat Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-glow bg-gradient-spanish hover:opacity-90 transition-smooth"
@@ -90,6 +102,7 @@ const Chatbot = () => {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} /> {/* Auto-scroll target */}
             </div>
 
             {/* Input */}
@@ -98,7 +111,7 @@ const Chatbot = () => {
                 <Input
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   placeholder={t('chatbotPlaceholder')}
                   className="flex-1"
                 />
