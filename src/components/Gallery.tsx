@@ -1,7 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // Import all gallery images
-import tortillaEspanola from '@/assets/Gallery/tortilla-espanola.jpg';
 import img1 from '@/assets/Gallery/IMG-20251016-WA0001.jpg';
 import img2 from '@/assets/Gallery/IMG-20251016-WA0002.jpg';
 import img3 from '@/assets/Gallery/IMG-20251016-WA0003.jpg';
@@ -39,8 +38,7 @@ const Gallery = () => {
 
   // Gallery images from assets
   const galleryImages = [
-    { id: 1, src: tortillaEspanola, alt: 'Tortilla Española' },
-    { id: 2, src: img1, alt: 'Restaurant dish' },
+    { id: 1, src: img1, alt: 'Restaurant dish' },
     { id: 3, src: img2, alt: 'Restaurant dish' },
     { id: 4, src: img3, alt: 'Restaurant dish' },
     { id: 5, src: img4, alt: 'Restaurant dish' },

@@ -143,7 +143,7 @@ const Contact = () => {
             {/* Google Maps Embed */}
             <div className="rounded-lg overflow-hidden shadow-elegant h-[300px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.7773333333337!2d-7.619722!3d33.589722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM1JzIzLjAiTiA3wrAzNycxMS4wIlc!5e0!3m2!1sen!2s!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13294.236691870768!2d-7.638219!3d33.5907932!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d3cdbcf24e87%3A0xff0dc1470b0140de!2sVicho%27s!5e0!3m2!1sfr!2sma!4v1761343001408!5m2!1sfr!2sma"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
